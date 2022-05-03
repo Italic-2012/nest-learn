@@ -11,7 +11,7 @@ export class ApiController {
 
   @Get()
   index() {
-    return this.userService.getUserInfo();
+    return this.userService.getAll();
   }
 
   @Get('hello')

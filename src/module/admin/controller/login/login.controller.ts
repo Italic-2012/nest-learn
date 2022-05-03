@@ -3,11 +3,11 @@ import * as Joi from 'joi';
 import { LoginPipe } from 'src/pipe/login.pipe';
 
 const schema = Joi.object().keys({
-  username: Joi.string().min(4).max(8).required(),
-  password: Joi.string().min(4).max(7).required(),
+  username: Joi.string().min(4).max(18).required(),
+  password: Joi.string().min(4).max(18).required(),
 });
 
-@Controller('login')
+@Controller('admin/login')
 export class LoginController {
   @Get()
   @Render('login')
@@ -27,7 +27,7 @@ export class LoginController {
         httpOnly: true,
         signed: true,
       });
-      res.redirect('/user');
+      res.redirect('/admin/user');
       return;
     }
     res.send({ code: 401, message: '用户名或密码错误' });

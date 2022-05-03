@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
-  getUserInfo() {
-    return { username: 'nick', age: 24 };
+  getAll() {
+    return [
+      { username: '张三', age: 23 },
+      { username: '李四', age: 23 },
+      { username: '账务', age: 23 },
+      { username: '王二麻', age: 23 },
+    ];
   }
 }

@@ -1,11 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render, Request } from "@nestjs/common";
 import { UserService } from '../../service/user/user.service';
 
 @Controller('admin/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Get()
-  index() {
-    return this.userService.getUserInfo();
+  @Render('user')
+  index(@Request() req) {
+    return {
+      username: req.signedCookies.username,
+      userList: this.userService.getAll(),
+    };
   }
 }

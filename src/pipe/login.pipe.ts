@@ -11,9 +11,8 @@ export class LoginPipe implements PipeTransform {
    * @returns
    */
   transform(value: any, metadata: ArgumentMetadata) {
-    const e = this.schema.validate(value);
-    if (e) {
-      const error = e.error;
+    const { error } = this.schema.validate(value);
+    if (error) {
       return {
         error: error.details[0].message,
       };
