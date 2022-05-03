@@ -3,6 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParse from 'cookie-parser';
 import { AppModule } from './app.module';
 import { logger } from './middleware/logger.middleware';
+import { AuthGuard } from "./guard/auth.guard";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,6 +18,8 @@ async function bootstrap() {
 
   // 使用cookie中间件
   app.use(cookieParse('shop-server'));
+
+  app.useGlobalGuards(new AuthGuard())
 
   // 使用自定义全局中间件
   app.use(logger);
