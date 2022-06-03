@@ -1,23 +1,21 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { MongooseModule } from "@nestjs/mongoose";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './user/user.controller';
-import { NewsController } from './news/news.controller';
-import { LoginController } from './login/login.controller';
-import { RegisterController } from './register/register.controller';
-import { UserService } from './user/user.service';
-import { ArticleService } from './article/article.service';
-import { UploadService } from './upload/upload.service';
-import { UploadController } from './upload/upload.controller';
 import { InitMiddleware } from './middleware/init.middleware';
 import { ApiModule } from './module/api/api.module';
 import { AdminModule } from './module/admin/admin.module';
 import { DefaultModule } from './module/default/default.module';
 
 @Module({
-  imports: [ApiModule, AdminModule, DefaultModule],
-  controllers: [AppController, UserController, NewsController, LoginController, RegisterController, UploadController],
-  providers: [AppService, UserService, ArticleService, UploadService],
+  imports: [
+    ApiModule,
+    AdminModule,
+    DefaultModule,
+    MongooseModule.forRoot('mongodb://127.0.0.1:27018/koa'), // 配置数据库链接
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
